@@ -27,17 +27,20 @@
   background: linear-gradient(135deg, #6366f1 0%, #22d3ee 100%);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25), 0 2px 6px rgba(34, 211, 238, 0.2);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25),
+    0 2px 6px rgba(34, 211, 238, 0.2);
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .app .wrap button:hover {
   transform: translateY(-1px);
   filter: brightness(1.03);
-  box-shadow: 0 12px 26px rgba(99, 102, 241, 0.32), 0 4px 10px rgba(34, 211, 238, 0.24);
+  box-shadow: 0 12px 26px rgba(99, 102, 241, 0.32),
+    0 4px 10px rgba(34, 211, 238, 0.24);
 }
 
 .app .wrap button:active {
@@ -47,7 +50,8 @@
 
 .app .wrap button:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.35), 0 10px 22px rgba(99, 102, 241, 0.25);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.35),
+    0 10px 22px rgba(99, 102, 241, 0.25);
   border-color: rgba(99, 102, 241, 0.45);
 }
 
@@ -71,6 +75,7 @@
   }
 
   .app .wrap button:focus-visible {
-    box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.35), 0 16px 30px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.35),
+      0 16px 30px rgba(0, 0, 0, 0.55);
   }
 }

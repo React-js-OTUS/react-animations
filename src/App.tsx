@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Card from "./components/Card";
+import AnimatedList from "./components/AnimatedList";
 
 const getText = (i: number) =>
   [
@@ -12,20 +13,45 @@ const getText = (i: number) =>
 const App = () => {
   const [activeIdx, setActiveIdx] = useState(-1);
   const text = getText(activeIdx);
+  const items = Array.from({ length: 120 }, (_, index) => `Item ${index + 1}`);
 
   return (
-    <div className="app">
-      <div className="wrap">
-        {activeIdx !== -1 && <Card text={text} idx={activeIdx} />}
-        <button
-          className={activeIdx !== -1 ? "has-margin" : ""}
-          onClick={() => setActiveIdx((prev) => (prev < 2 ? prev + 1 : 0))}
-        >
-          {activeIdx === -1 ? "Start" : "Next"}
-        </button>
+    <>
+      <div className="app">
+        <div className="wrap">
+          {activeIdx !== -1 && <Card text={text} idx={activeIdx} />}
+          <button
+            className={activeIdx !== -1 ? "has-margin" : ""}
+            onClick={() => setActiveIdx((prev) => (prev < 2 ? prev + 1 : 0))}
+          >
+            {activeIdx === -1 ? "Start" : "Next"}
+          </button>
+        </div>
       </div>
-    </div>
+
+      <>
+        <h1>Intersection Observer API in React</h1>
+        <p>Scroll down to see the animations......</p>
+        <AnimatedList items={items} />
+      </>
+    </>
   );
 };
 
 export default App;
+
+// import AnimatedList from "./components/AnimatedList";
+// // import AnimatedList from "./components/animatedList";
+
+// const App = () => {
+//   const items = Array.from({ length: 120 }, (_, index) => `Item ${index + 1}`);
+//   return (
+//     <div>
+//       <h1>Intersection Observer API in React</h1>
+//       <p>Scroll down to see the animations......</p>
+//       <AnimatedList items={items} />
+//     </div>
+//   );
+// };
+
+// export default App;
