@@ -2,54 +2,53 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 
 interface ChangeHeightMotionProps {
-  children: React.ReactNode;
-  reanimate: string | number;
-  //По дефолту, motion компонент проигрывает анимации только при маунте компонента.
-  // Чтобы компонент реанимировался, нужно в него передать переменную, при изменении
-  // которой он будет снова проигрывать анимацию
-  initialHeight?: number | string;
-  duration?: number;
-  ease?: any;
-  easeWithSpring?: boolean;
-  delay?: number;
+  children: React.ReactNode; // Контент, который будет обёрнут анимацией изменения высоты
+  reanimate: string | number; // Ключ, при изменении которого будет заново проигрываться анимация
+  initialHeight?: number | string; // Начальная высота (по умолчанию 0)
+  duration?: number; // Длительность анимации
+  ease?: any; // Функция сглаживания (easing)
+  easeWithSpring?: boolean; // Включить ли "пружинную" анимацию (по умолчанию true)
+  delay?: number; // Задержка перед началом анимации
 }
 
+// Компонент, оборачивающий children и анимирующий изменение высоты блока
 const ChangeHeightMotion = ({
   children,
   reanimate,
-  initialHeight = 0, // Добавим возможность передавать начальную высоту блока и сделаем ее 0 по дефолту.
+  initialHeight = 0,
   duration = 0.5,
   ease = "linear",
   easeWithSpring = true,
   delay = 0,
 }: ChangeHeightMotionProps) => {
+  // Ссылка на DOM-элемент motion.div
   const motionElemRef = useRef<HTMLDivElement>(null);
+
+  // Сохраняем последнюю зафиксированную высоту между рендерами
   const initialHeightRef = useRef<number | string>(initialHeight);
 
   return (
     <motion.div
-      key={reanimate}
-      ref={motionElemRef}
-      initial={{ height: initialHeightRef.current }} // Параметр initial содержит состояние начала анимации,
-      animate={{ height: "auto" }} // а параметр animate - конца (Конечное значение высоты выставим auto - по величине контента)
+      key={reanimate} // Ключ гарантирует, что анимация будет проигрываться при изменении reanimate
+      ref={motionElemRef} // Присваиваем ref для доступа к DOM-элементу
+      initial={{ height: initialHeightRef.current }} // Начальная высота анимации
+      animate={{ height: "auto" }} // Анимируем до полной высоты содержимого
       onAnimationComplete={() => {
-        // Как отработает animate, запоминаем новое начальное значение отсчета высоты:
-        if (motionElemRef.current) {
+        // После завершения анимации фиксируем новую высоту как стартовую
+        if (motionElemRef.current)
           initialHeightRef.current = getComputedStyle(
             motionElemRef.current
           ).height;
-        }
       }}
       transition={{
-        // За настройку анимации отвечает параметр transition
-        // Имена и логика свойств transition коррелируют с именами css свойства transition: duration, ease, delay
-        duration,
-        ease,
-        type: easeWithSpring ? "spring" : "tween",
-        delay,
+        // Настройки анимации
+        duration, // Длительность
+        ease, // Тип easing-функции
+        type: easeWithSpring ? "spring" : "tween", // Тип анимации: "пружина" или "плавная"
+        delay, // Задержка перед запуском
       }}
     >
-      {children}
+      {children} {/* Вставляем переданные внутрь компонента элементы */}
     </motion.div>
   );
 };
